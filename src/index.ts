@@ -9,7 +9,14 @@ const app: express.Application = express()
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
-app.use('/graphql', graphqlExpress((req) => {
+app.use('/graphql', graphqlExpress((req: express.Request) => {
+  const MAXIMUN_QUERY_LENGTH: number = 2000
+  const query = req.query.query || req.body.query
+
+  if (query && query.length > MAXIMUN_QUERY_LENGTH) {
+    throw new Error('Query too large.')
+  }
+
   return {
     schema
   }
