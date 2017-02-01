@@ -1,2 +1,6 @@
 # DomQL
-Web Scrapper using GraphQL, inspired by [syrusakbary's gdom](https://github.com/syrusakbary/gdom)
+[syrusakbary's gdom](https://github.com/syrusakbary/gdom) TypeScript version
+
+Project Purpose
+- Learning TypeScript
+- Create some open source project
