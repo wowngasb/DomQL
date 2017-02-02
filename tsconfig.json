@@ -4,7 +4,6 @@
     "module": "commonjs",
     "moduleResolution": "Node",
     "newLine": "LF",
-    "noImplicitAny": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
     "noUnusedLocals": true,

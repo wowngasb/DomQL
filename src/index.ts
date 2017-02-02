@@ -1,6 +1,8 @@
 import * as express from 'express'
 import * as bodyParser from 'body-parser'
 import { graphqlExpress, graphiqlExpress } from 'graphql-server-express'
+import * as cheerio from 'cheerio'
+import fetch from 'node-fetch'
 import config from './config'
 import schema from './schema'
 
@@ -18,17 +20,22 @@ app.use('/graphql', graphqlExpress((req: express.Request) => {
   }
 
   return {
-    schema
+    schema,
+    context: {
+      cheerio,
+      config,
+      fetch
+    }
   }
 }))
 
 app.use('/graphiql', graphiqlExpress({
   endpointURL: '/graphql',
   query: `{
-    demo {
-      foo
-    }
-  }`
+  page(url: "http://www.sanook.com") {
+    title
+  }
+}`
 }))
 
 app.listen(config.server.port, () : void => {
