@@ -11,6 +11,10 @@ const app: express.Application = express()
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
+app.get('/', function (req, res) {
+  res.redirect(301, '/graphiql')
+})
+
 app.use('/graphql', graphqlExpress((req: express.Request) => {
   const MAXIMUN_QUERY_LENGTH: number = 2000
   const query = req.query.query || req.body.query
@@ -40,4 +44,8 @@ app.use('/graphiql', graphiqlExpress({
 
 app.listen(config.server.port, () : void => {
   console.log(`Server runing on port ${config.server.port}`)
+})
+
+app.use('*', function (req, res) {
+  res.status(404).end()
 })
