@@ -14,6 +14,7 @@
     "mocha": "^3.2.0",
     "nodemon": "^1.11.0",
     "ts-node": "^2.0.0",
+    "tslint": "^4.4.2",
     "typescript": "^2.1.5"
   },
   "dependencies": {
@@ -34,9 +35,11 @@
     "compile:watch": "tsc -w",
     "start": "node .lib/index.js",
     "start:watch": "nodemon --watch ./lib --ignore './lib/**/*.spec.js' -e js ./lib/index.js",
-    "dev": "concurrently \"npm run compile:watch\" \"npm run test:watch\" \"npm run start:watch\"",
+    "dev": "concurrently --kill-others \"npm run compile:watch\" \"npm run start:watch\"",
     "test": "mocha ./lib/**/*.spec.js",
     "test:watch": "nodemon --watch ./lib -e spec.js --exec npm run test",
-    "postinstall": "npm run cleanup && npm run compile"
+    "postinstall": "npm run cleanup && npm run compile",
+    "lint": "tslint './src/**/*.ts",
+    "lint:watch": "nodemon --watch ./src -e ts --exec npm run lint"
   }
 }
