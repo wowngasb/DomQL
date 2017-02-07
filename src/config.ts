@@ -5,5 +5,10 @@ export default {
 
   cheerio: {
     decodeEntities: true
+  },
+
+  validateUrl: {
+    protocols: ['http', 'https'],
+    require_protocol: true
   }
 }

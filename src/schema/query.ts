@@ -1,6 +1,6 @@
 import { merge } from 'lodash'
 import { schema as documentSchema, resolvers as documentResolvers } from './document'
-import isValidUrl from '../validators/isValidUrl'
+import { isURL } from 'validator'
 
 export const schema: Array<string> = [`
   # The query root.
@@ -16,7 +16,7 @@ export const schema: Array<string> = [`
 export const resolvers: Object = merge({
   Query: {
     page: (parent, { url }, { cheerio, config, fetch }) => {
-      if (!isValidUrl(url)) {
+      if (!isURL(url, config.validateUrl)) {
         throw new Error(`${url} is not a valid URL`)
       }
 
