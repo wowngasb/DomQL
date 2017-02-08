@@ -7,6 +7,9 @@ export const fields = `
 
   # Get text of the selected DOM
   text(selector: String): String
+
+  # Get tag name ot selected DOM
+  tag(selector: String): String
 `
 
 export const contract = `
@@ -35,5 +38,15 @@ export const resolvers = {
 
   text: (self, args) => {
     return querySelector(self, args).text()
+  },
+
+  tag: (self, args) => {
+    const el = querySelector(self, args).get(0)
+
+    if (!el) {
+      return null
+    }
+
+    return el.tagName
   }
 }

@@ -7,6 +7,7 @@ const query = `
       html(selector: "#container")
       content(selector: "#container")
       text(selector: "#container > h1")
+      tag(selector: "#container")
     }
   }
 `
@@ -42,5 +43,9 @@ describe('Node Type', () => {
 
   it('can get text of the selected DOM', () => {
     expect(queryResult.data.page.text).toEqual('Title')
+  })
+
+  it('can get tag name of the selected dom', () => {
+    expect(queryResult.data.page.tag).toEqual('div')
   })
 })
