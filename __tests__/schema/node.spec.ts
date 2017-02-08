@@ -6,6 +6,7 @@ const query = `
       title
       html(selector: "#container")
       content(selector: "#container")
+      text(selector: "#container > h1")
     }
   }
 `
@@ -37,5 +38,9 @@ describe('Node Type', () => {
 
   it('can get inner html of selector', () => {
     expect(queryResult.data.page.content).toBe('\n        <h1>Title</h1>\n        <h2>Subtitle</h2>\n      ')
+  })
+
+  it('can get text of the selected DOM', () => {
+    expect(queryResult.data.page.text).toEqual('Title')
   })
 })

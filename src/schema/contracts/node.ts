@@ -4,6 +4,9 @@ export const fields = `
 
   # The HTML representation of the subnodes for the selected DOM
   content(selector: String): String
+
+  # Get text of the selected DOM
+  text(selector: String): String
 `
 
 export const contract = `
@@ -28,5 +31,9 @@ export const resolvers = {
 
   content: (self, args) => {
     return querySelector(self, args).html()
+  },
+
+  text: (self, args) => {
+    return querySelector(self, args).text()
   }
 }
