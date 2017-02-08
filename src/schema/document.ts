@@ -7,7 +7,7 @@ import {
 
 export const schema = [`
   # Loaded webpage from given url
-  type Document {
+  type Document implements Node {
     # The title of the document
     title: String
 
@@ -16,9 +16,9 @@ export const schema = [`
 `, nodeContract]
 
 export const resolvers = {
-  Document: merge(nodeResolvers, {
+  Document: merge({
     title: (self) => {
       return self.find('title').text()
     }
-  })
+  }, nodeResolvers)
 }

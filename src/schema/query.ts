@@ -1,5 +1,6 @@
 import { merge } from 'lodash'
 import { schema as documentSchema, resolvers as documentResolvers } from './document'
+import { schema as elementSchema, resolvers as elementResolvers } from './element'
 import { isURL } from 'validator'
 
 export const schema: Array<string> = [`
@@ -11,9 +12,9 @@ export const schema: Array<string> = [`
       url: String!
     ): Document
   }
-`, ...documentSchema]
+`, ...documentSchema, ...elementSchema]
 
-export const resolvers: Object = merge({
+export const resolvers = merge({
   Query: {
     page: (parent, { url }, { cheerio, config, fetch }) => {
       if (!isURL(url, config.validateUrl)) {
@@ -33,4 +34,4 @@ export const resolvers: Object = merge({
         })
     }
   }
-}, documentResolvers)
+}, documentResolvers, elementResolvers)

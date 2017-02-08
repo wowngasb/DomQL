@@ -13,6 +13,9 @@ export const fields = `
 
   # Get specify attribute value
   attr(name: String!, selector: String): String
+
+  # Find elements using selector
+  query(selector: String): [Element]
 `
 
 export const contract = `
@@ -55,5 +58,11 @@ export const resolvers = {
 
   attr: (self, args) => {
     return querySelector(self, args).attr(args.name)
+  },
+
+  query: (self, args, { cheerio }) => {
+    return querySelector(self, args).map(function() {
+      return cheerio(this)
+    })
   }
 }

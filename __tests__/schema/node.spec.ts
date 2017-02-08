@@ -9,6 +9,9 @@ const query = `
       text(selector: "#container > h1")
       tag(selector: "#container")
       attr(selector: "#container", name: "width")
+      articles: query(selector: "#forQuery article") {
+        h1: text(selector: "h1")
+      }
     }
   }
 `
@@ -24,6 +27,17 @@ const mockHtml = `
         <h1>Title</h1>
         <h2 >Subtitle</h2>
       </div>
+      <section id="forQuery">
+        <article>
+          <h1>Article 1</h1>
+        </article>
+        <article>
+          <h1>Article 2</h1>
+        </article>
+        <article>
+          <h1>Article 3</h1>
+        </article>
+      </section>
     </body>
   </html>
 `
@@ -43,14 +57,28 @@ describe('Node Type', () => {
   })
 
   it('can get text of the selected DOM', () => {
-    expect(queryResult.data.page.text).toEqual('Title')
+    expect(queryResult.data.page.text).toBe('Title')
   })
 
   it('can get tag name of the selected dom', () => {
-    expect(queryResult.data.page.tag).toEqual('div')
+    expect(queryResult.data.page.tag).toBe('div')
   })
 
   it('can get specific attribute of selected dom', () => {
-    expect(queryResult.data.page.attr).toEqual('50%')
+    expect(queryResult.data.page.attr).toBe('50%')
+  })
+
+  it('can query dom using selector', () => {
+    expect(queryResult.data.page.articles).toEqual([
+      {
+        h1: 'Article 1'
+      },
+      {
+        h1: 'Article 2'
+      },
+      {
+        h1: 'Article 3'
+      }
+    ])
   })
 })
