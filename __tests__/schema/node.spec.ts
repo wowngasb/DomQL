@@ -8,6 +8,7 @@ const query = `
       content(selector: "#container")
       text(selector: "#container > h1")
       tag(selector: "#container")
+      attr(selector: "#container", name: "width")
     }
   }
 `
@@ -19,9 +20,9 @@ const mockHtml = `
       <title>Mock Title</title>
     </head>
     <body>
-      <div id="container">
+      <div id="container" width="50%">
         <h1>Title</h1>
-        <h2>Subtitle</h2>
+        <h2 >Subtitle</h2>
       </div>
     </body>
   </html>
@@ -34,7 +35,7 @@ beforeAll(async () => {
 
 describe('Node Type', () => {
   it('can get html of selector', () => {
-    expect(queryResult.data.page.html).toBe('<div id="container">\n        <h1>Title</h1>\n        <h2>Subtitle</h2>\n      </div>')
+    expect(queryResult.data.page.html).toBe('<div id="container" width="50%">\n        <h1>Title</h1>\n        <h2>Subtitle</h2>\n      </div>')
   })
 
   it('can get inner html of selector', () => {
@@ -47,5 +48,9 @@ describe('Node Type', () => {
 
   it('can get tag name of the selected dom', () => {
     expect(queryResult.data.page.tag).toEqual('div')
+  })
+
+  it('can get specific attribute of selected dom', () => {
+    expect(queryResult.data.page.attr).toEqual('50%')
   })
 })

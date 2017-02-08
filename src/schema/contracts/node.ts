@@ -10,6 +10,9 @@ export const fields = `
 
   # Get tag name ot selected DOM
   tag(selector: String): String
+
+  # Get specify attribute value
+  attr(name: String!, selector: String): String
 `
 
 export const contract = `
@@ -48,5 +51,9 @@ export const resolvers = {
     }
 
     return el.tagName
+  },
+
+  attr: (self, args) => {
+    return querySelector(self, args).attr(args.name)
   }
 }
