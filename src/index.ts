@@ -36,8 +36,26 @@ app.use('/graphql', graphqlExpress((req: express.Request) => {
 app.use('/graphiql', graphiqlExpress({
   endpointURL: '/graphql',
   query: `{
-  page(url: "http://www.sanook.com") {
-    title
+  siamhtml: page(url: "http://www.siamhtml.com") {
+    highlights: query(selector: ".section.section--highlight article") {
+      title: text(selector:".post__title")
+      thumbnail: attr(selector: ".post__image", name: "src")
+      link: query(selector: ".post__title a") {
+        url: attr(name: "href")
+        content: visit {
+          author: attr(selector: ".author meta", name: "content")
+          publishedDate: text(selector: ".meta__item--pubDate time")
+        }
+      }
+    }
+  }
+
+  sanook: page(url: "http://www.sanook.com") {
+    news: query(selector: "#tab-news article") {
+			title: text(selector: "h3")
+      link: attr(selector: "a", name: "href")
+      thumbnail: attr(selector: "img", name: "src")
+    }
   }
 }`
 }))
