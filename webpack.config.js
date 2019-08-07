@@ -1,5 +1,7 @@
 var path = require('path');
 
+var WEBPACK_ENV = process.env.WEBPACK_ENV || 'dev';
+
 module.exports = {
     entry: './index.js',
     module: {
@@ -12,5 +14,10 @@ module.exports = {
         path: path.resolve(__dirname, './dist'),
         publicPath: '/dist/',
         filename: 'domQL.js',
+    },
+    devServer: {
+        contentBase: __dirname,
+        port: 5478,
+        open: true
     }
 };
